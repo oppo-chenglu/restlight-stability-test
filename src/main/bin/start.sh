@@ -14,7 +14,7 @@ case "`uname`" in
 esac
 base=${bin_abs_path}/..
 
-appName=$1
+appName=restlight-server
 
 get_pid() {
         STR=$1
@@ -36,13 +36,12 @@ fi
 JAVA_OPTS="-Djava.io.tmpdir=$base/tmp -DappName=${appName} -Djava.awt.headless=true -Djava.net.preferIPv4Stack=true -Dfile.encoding=UTF-8 -Djava.security.egd=file:/dev/./urandom"
 JAVA_OPTS_MEM_AND_GC="-Xms1024m -Xmx1024m -Dio.netty.leakDetection.level=paraniod -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=256m -Xloggc:logs/gc-${appName}.log -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=70 -XX:+PrintTenuringDistribution -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=50M -XX:+HeapDumpAfterFullGC -XX:+HeapDumpBeforeFullGC -XX:HeapDumpPath=logs/dumpfile-${appName}"
 SPRING_CONF="-Dspring.config.location=conf/application.properties"
-PORT=$2
 
 cd $base
 if [ ! -d "logs" ]; then
   mkdir logs
 fi
-java $SPRING_CONF $JAVA_OPTS $JAVA_OPTS_MEM $JAVA_OPTS_CMS $JAVA_OPTS_GC -classpath 'lib/*:conf' io.esastack.stability.test.Application $PORT 1>>logs/server.log 2>&1 &
+java $SPRING_CONF $JAVA_OPTS $JAVA_OPTS_MEM $JAVA_OPTS_CMS $JAVA_OPTS_GC -classpath 'lib/*:conf' io.esastack.stability.test.Application 1>>logs/server.log 2>&1 &
 
 echo $! > $base/server.pid
 
