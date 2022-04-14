@@ -13,10 +13,12 @@
 
 package io.esastack.stability.test.controller;
 
+import io.esastack.restlight.server.core.HttpRequest;
 import io.esastack.restlight.spring.shaded.org.springframework.web.bind.annotation.PostMapping;
 import io.esastack.restlight.spring.shaded.org.springframework.web.bind.annotation.RequestBody;
-import io.esastack.restlight.spring.shaded.org.springframework.web.bind.annotation.RestController;
+import io.esastack.restlight.spring.shaded.org.springframework.web.bind.annotation.ResponseBody;
 import lombok.Data;
+import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -24,15 +26,15 @@ import java.util.Date;
 /**
  * @author chenglu
  */
-@RestController
+@Controller
 public class StabilityController {
 
     /**
      * 请求和返回类型是byte[]
      */
     @PostMapping("/byte")
+    @ResponseBody
     public byte[] requestByte(@RequestBody byte[] bytes) {
-        System.out.println(bytes.length);
         return new byte[4096];
     }
 
@@ -40,8 +42,8 @@ public class StabilityController {
      * 请求和响应是POJO，序列化方式是默认的jackson序列化
      */
     @PostMapping("/pojo")
+    @ResponseBody
     public Pojo requestPojo(@RequestBody Pojo pojo) {
-        System.out.println(pojo);
         return pojo;
     }
 
