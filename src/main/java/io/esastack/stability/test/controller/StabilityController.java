@@ -34,8 +34,8 @@ public class StabilityController {
      */
     @PostMapping("/byte")
     @ResponseBody
-    public byte[] requestByte(@RequestBody byte[] bytes) {
-        return new byte[4096];
+    public byte[] requestByte(HttpRequest httpRequest) {
+        return httpRequest.body().getBytes();
     }
 
     /**
